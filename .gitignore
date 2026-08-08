@@ -1,0 +1,14 @@
+.agents/
+.codex/
+.playwright-cli/
+.vscode/
+
+node_modules/
+dist/
+build/
+
+*.log
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store

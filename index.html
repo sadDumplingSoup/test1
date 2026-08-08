@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="机器学习、深度学习与强化学习的一站式可视化学习平台">
+  <title>知径 AI 学习地图</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311262b'/%3E%3Cpath d='M16 42 27 15l7 18 6-12 8 21' fill='none' stroke='%23f06f55' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-close" id="sidebarClose" aria-label="关闭菜单">×</button>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <strong>知径</strong>
+          <small>AI LEARNING MAP</small>
+        </div>
+      </div>
+
+      <nav class="side-nav" aria-label="主要导航">
+        <a class="nav-item active" href="#overview" data-section="overview">
+          <span class="nav-icon">⌂</span><span>学习总览</span>
+        </a>
+        <a class="nav-item" href="#roadmap" data-section="roadmap">
+          <span class="nav-icon">⌁</span><span>学习路线</span>
+        </a>
+        <a class="nav-item" href="#curriculum" data-section="curriculum">
+          <span class="nav-icon">▤</span><span>完整课程</span>
+        </a>
+        <a class="nav-item" href="#visual-lab" data-section="visual-lab">
+          <span class="nav-icon">◉</span><span>可视化实验室</span>
+        </a>
+        <a class="nav-item" href="#projects" data-section="projects">
+          <span class="nav-icon">◇</span><span>实战项目</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-progress">
+        <div class="mini-progress-ring" id="sidebarProgressRing" style="--progress: 0">
+          <span id="sidebarProgressText">0%</span>
+        </div>
+        <div>
+          <strong>总学习进度</strong>
+          <small id="sidebarLessonCount">0 / 0 个知识点</small>
+        </div>
+      </div>
+
+      <div class="sidebar-tip">
+        <span class="tip-spark">✦</span>
+        <p>每天完成 2 个知识点，比偶尔突击更有效。</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" aria-label="打开菜单">☰</button>
+        <div class="global-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="globalSearch" type="search" placeholder="搜索知识点，例如：梯度下降、CNN、Q-Learning" autocomplete="off">
+          <kbd>Ctrl K</kbd>
+          <div class="search-results" id="searchResults" hidden></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="themeToggle" aria-label="切换主题">☾</button>
+          <div class="streak-pill"><span>🔥</span><strong id="streakDays">1</strong><small>天连续学习</small></div>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-section hero-section" id="overview">
+          <div class="eyebrow"><span></span> YOUR AI LEARNING JOURNEY</div>
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <h1>把复杂的 AI 知识，<br><em>变成一条看得见的路。</em></h1>
+              <p>从 Python 与数学基础出发，逐步掌握机器学习、深度学习和强化学习。每个知识点都有解释、目标、练习和可视化演示。</p>
+              <div class="hero-actions">
+                <a class="primary-button" href="#curriculum">开始学习 <span>→</span></a>
+                <a class="ghost-button" href="#roadmap">查看完整路线</a>
+              </div>
+            </div>
+            <div class="hero-orbit" aria-label="AI 学习领域关系图">
+              <div class="orbit orbit-one"></div>
+              <div class="orbit orbit-two"></div>
+              <div class="orbit-center"><span>AI</span><small>人工智能</small></div>
+              <div class="orbit-node node-ml"><i></i><span>机器学习</span></div>
+              <div class="orbit-node node-dl"><i></i><span>深度学习</span></div>
+              <div class="orbit-node node-rl"><i></i><span>强化学习</span></div>
+              <div class="orbit-dot dot-a"></div><div class="orbit-dot dot-b"></div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card coral">
+              <span class="stat-icon">▦</span>
+              <div><strong id="statStages">4</strong><small>学习阶段</small></div>
+              <p>由基础到进阶</p>
+            </article>
+            <article class="stat-card blue">
+              <span class="stat-icon">◫</span>
+              <div><strong id="statModules">0</strong><small>核心模块</small></div>
+              <p>覆盖完整知识体系</p>
+            </article>
+            <article class="stat-card violet">
+              <span class="stat-icon">◎</span>
+              <div><strong id="statLessons">0</strong><small>知识点</small></div>
+              <p>逐项学习与打卡</p>
+            </article>
+            <article class="stat-card green">
+              <span class="stat-icon">⌘</span>
+              <div><strong>12</strong><small>实战项目</small></div>
+              <p>从理解走向应用</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="page-section" id="roadmap">
+          <div class="section-heading">
+            <div><span class="section-kicker">LEARNING ROADMAP</span><h2>一张图看懂学习顺序</h2></div>
+            <p>推荐每天学习 1～2 小时。点击阶段，可直接查看该阶段的全部课程。</p>
+          </div>
+
+          <div class="roadmap" id="roadmapCards"></div>
+
+          <div class="knowledge-map-card">
+            <div class="map-copy">
+              <span class="section-kicker">KNOWLEDGE MAP</span>
+              <h3>这些知识是如何连接的？</h3>
+              <p>数学和编程是共同地基；机器学习建立建模思维；深度学习用神经网络处理复杂数据；强化学习让智能体在互动中学会决策。</p>
+              <div class="map-legend">
+                <span><i class="legend-foundation"></i>基础</span>
+                <span><i class="legend-ml"></i>机器学习</span>
+                <span><i class="legend-dl"></i>深度学习</span>
+                <span><i class="legend-rl"></i>强化学习</span>
+              </div>
+            </div>
+            <div class="knowledge-map" id="knowledgeMap">
+              <svg viewBox="0 0 620 330" role="img" aria-label="知识依赖关系图">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/></marker>
+                  <filter id="softShadow"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".12"/></filter>
+                </defs>
+                <g class="map-lines">
+                  <path d="M165 165 C220 165 230 84 285 84"/>
+                  <path d="M165 165 C220 165 230 165 285 165"/>
+                  <path d="M165 165 C220 165 230 246 285 246"/>
+                  <path d="M395 84 C445 84 450 165 500 165"/>
+                  <path d="M395 165 C445 165 450 165 500 165"/>
+                  <path d="M395 246 C445 246 450 165 500 165"/>
+                </g>
+                <g class="map-node foundation-node" transform="translate(55 125)" tabindex="0"><rect width="110" height="80" rx="20"/><text x="55" y="34">数学 · Python</text><text class="sub" x="55" y="56">共同基础</text></g>
+                <g class="map-node ml-node" transform="translate(285 44)" tabindex="0"><rect width="110" height="80" rx="20"/><text x="55" y="34">机器学习</text><text class="sub" x="55" y="56">建模与预测</text></g>
+                <g class="map-node dl-node" transform="translate(285 125)" tabindex="0"><rect width="110" height="80" rx="20"/><text x="55" y="34">深度学习</text><text class="sub" x="55" y="56">神经网络</text></g>
+                <g class="map-node rl-node" transform="translate(285 206)" tabindex="0"><rect width="110" height="80" rx="20"/><text x="55" y="34">强化学习</text><text class="sub" x="55" y="56">决策与反馈</text></g>
+                <g class="map-node project-node" transform="translate(500 125)" tabindex="0"><rect width="105" height="80" rx="40"/><text x="52" y="34">综合项目</text><text class="sub" x="52" y="56">真实应用</text></g>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-section" id="curriculum">
+          <div class="section-heading curriculum-heading">
+            <div><span class="section-kicker">FULL CURRICULUM</span><h2>完整课程大纲</h2></div>
+            <div class="curriculum-summary"><strong id="completedLessons">0</strong><span>/</span><span id="totalLessons">0</span><small>已完成知识点</small></div>
+          </div>
+
+          <div class="curriculum-toolbar">
+            <div class="filter-pills" id="stageFilters">
+              <button class="filter-pill active" data-filter="all">全部</button>
+              <button class="filter-pill" data-filter="foundation">基础</button>
+              <button class="filter-pill" data-filter="ml">机器学习</button>
+              <button class="filter-pill" data-filter="dl">深度学习</button>
+              <button class="filter-pill" data-filter="rl">强化学习</button>
+            </div>
+            <button class="text-button" id="expandAll">全部展开</button>
+          </div>
+
+          <div class="curriculum-list" id="curriculumList"></div>
+        </section>
+
+        <section class="page-section" id="visual-lab">
+          <div class="section-heading">
+            <div><span class="section-kicker">VISUAL LAB</span><h2>把抽象原理“动”起来</h2></div>
+            <p>拖动参数或运行演示，先建立直觉，再学习公式与代码。</p>
+          </div>
+
+          <div class="lab-shell">
+            <div class="lab-tabs" role="tablist">
+              <button class="lab-tab active" data-lab="regression" role="tab">线性回归</button>
+              <button class="lab-tab" data-lab="network" role="tab">神经网络</button>
+              <button class="lab-tab" data-lab="reinforcement" role="tab">强化学习</button>
+            </div>
+
+            <div class="lab-panel active" id="lab-regression">
+              <div class="lab-explanation">
+                <span class="lab-number">01</span>
+                <h3>模型如何找到一条“最合适”的线？</h3>
+                <p>线性回归通过调整直线参数，让预测值与真实数据之间的误差尽可能小。拖动斜率，观察均方误差 MSE 的变化。</p>
+                <label for="slopeSlider">模型斜率 <output id="slopeValue">0.80</output></label>
+                <input id="slopeSlider" class="range" type="range" min="0.1" max="1.5" value="0.8" step="0.05">
+                <div class="metric-box"><span>均方误差 MSE</span><strong id="mseValue">0.00</strong><small id="fitMessage">继续调整，寻找最低点</small></div>
+              </div>
+              <div class="lab-visual canvas-wrap">
+                <canvas id="regressionCanvas" width="640" height="400" aria-label="线性回归交互图"></canvas>
+              </div>
+            </div>
+
+            <div class="lab-panel" id="lab-network">
+              <div class="lab-explanation">
+                <span class="lab-number">02</span>
+                <h3>信息如何穿过神经网络？</h3>
+                <p>输入经过权重连接传到隐藏层，激活函数决定哪些信号继续向前，输出层最终给出预测概率。</p>
+                <button class="primary-button compact" id="runNetwork">运行一次前向传播 <span>→</span></button>
+                <div class="formula-card">z = Wx + b<br><strong>a = ReLU(z)</strong></div>
+              </div>
+              <div class="lab-visual network-wrap">
+                <svg id="networkSvg" viewBox="0 0 650 400" role="img" aria-label="神经网络前向传播演示"></svg>
+                <div class="network-labels"><span>输入层</span><span>隐藏层</span><span>输出层</span></div>
+              </div>
+            </div>
+
+            <div class="lab-panel" id="lab-reinforcement">
+              <div class="lab-explanation">
+                <span class="lab-number">03</span>
+                <h3>智能体如何从奖励中学会行动？</h3>
+                <p>智能体观察状态、选择动作，并根据奖励更新策略。它需要在“探索新路线”和“利用已知好路线”之间取得平衡。</p>
+                <div class="rl-controls">
+                  <button class="primary-button compact" id="runAgent">运行一回合 <span>▶</span></button>
+                  <button class="ghost-button compact" id="resetAgent">重置</button>
+                </div>
+                <div class="rl-metrics"><span>步数 <strong id="agentSteps">0</strong></span><span>累计奖励 <strong id="agentReward">0</strong></span></div>
+              </div>
+              <div class="lab-visual gridworld-wrap">
+                <div class="gridworld" id="gridworld" aria-label="强化学习网格世界"></div>
+                <div class="reward-legend"><span><i class="agent-key"></i>智能体</span><span><i class="goal-key"></i>目标 +10</span><span><i class="trap-key"></i>陷阱 -5</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page-section" id="projects">
+          <div class="section-heading">
+            <div><span class="section-kicker">PROJECT PATH</span><h2>用项目检验真正的掌握</h2></div>
+            <p>项目按难度逐步解锁，每个项目都对应前面学过的核心能力。</p>
+          </div>
+          <div class="project-grid" id="projectGrid"></div>
+        </section>
+
+        <section class="study-method">
+          <div>
+            <span class="section-kicker light">HOW TO LEARN</span>
+            <h2>推荐的每日学习节奏</h2>
+          </div>
+          <div class="method-steps">
+            <article><strong>30<small>min</small></strong><span>理解概念</span><p>先回答“它解决什么问题”</p></article>
+            <i>→</i>
+            <article><strong>45<small>min</small></strong><span>跟写代码</span><p>亲手运行并修改参数</p></article>
+            <i>→</i>
+            <article><strong>30<small>min</small></strong><span>独立练习</span><p>关闭示例重新实现</p></article>
+            <i>→</i>
+            <article><strong>15<small>min</small></strong><span>总结复盘</span><p>记录错误与自己的解释</p></article>
+          </div>
+        </section>
+
+        <footer><span>知径 AI 学习地图</span><p>进度保存在当前浏览器中 · 保持好奇，持续动手</p><button id="resetProgress">重置学习进度</button></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="lessonModal" hidden>
+    <article class="lesson-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="关闭">×</button>
+      <header class="lesson-reader-header">
+        <div class="modal-topline"><span id="modalStage">机器学习</span><span id="modalDifficulty">入门</span><span id="modalReadTime">约 15 分钟</span></div>
+        <h2 id="modalTitle">知识点标题</h2>
+        <p class="modal-summary" id="modalSummary"></p>
+      </header>
+      <div class="theory-reader" id="theoryReader"></div>
+      <div class="modal-actions">
+        <button class="ghost-button" id="modalPrev">← 上一个</button>
+        <button class="complete-button" id="modalComplete">标记为已完成</button>
+        <button class="ghost-button" id="modalNext">下一个 →</button>
+      </div>
+    </article>
+  </div>
+
+  <div class="modal-backdrop" id="projectModal" hidden>
+    <article class="project-modal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <button class="modal-close" id="projectModalClose" aria-label="关闭项目">×</button>
+      <header class="project-reader-header">
+        <div class="modal-topline">
+          <span id="projectModalStage">机器学习</span>
+          <span id="projectModalDifficulty">入门</span>
+          <span id="projectModalRuntime">约 10 秒</span>
+        </div>
+        <h2 id="projectModalTitle">项目标题</h2>
+        <p id="projectModalGoal"></p>
+        <div class="project-reader-actions">
+          <button class="project-tool-button" id="copyProjectCode" title="复制完整代码"><span>⧉</span> 复制代码</button>
+          <button class="project-tool-button" id="downloadProjectCode" title="下载 Python 文件"><span>⇩</span> 下载 .py</button>
+        </div>
+      </header>
+      <nav class="project-reader-nav" aria-label="项目内容目录">
+        <a href="#project-overview">运行准备</a>
+        <a href="#project-code">完整代码</a>
+        <a href="#project-output">预期输出</a>
+        <a href="#project-notes">结果说明</a>
+      </nav>
+      <div class="project-reader-body">
+        <section class="project-reader-section" id="project-overview">
+          <div class="project-section-heading"><span>01</span><div><small>SETUP</small><h3>运行准备与项目步骤</h3></div></div>
+          <div class="project-setup-grid">
+            <article><small>安装依赖</small><code id="projectInstall"></code></article>
+            <article><small>运行命令</small><code id="projectRunCommand"></code></article>
+          </div>
+          <ol class="project-step-list" id="projectSteps"></ol>
+        </section>
+        <section class="project-reader-section" id="project-code">
+          <div class="project-section-heading"><span>02</span><div><small>SOURCE CODE</small><h3>带注释的完整代码</h3></div></div>
+          <div class="project-code-shell">
+            <div class="project-code-top"><span></span><span></span><span></span><strong id="projectFilename">project.py</strong><small id="projectLineCount">0 行</small></div>
+            <pre><code id="projectCodeContent"></code></pre>
+          </div>
+        </section>
+        <section class="project-reader-section" id="project-output">
+          <div class="project-section-heading"><span>03</span><div><small>EXPECTED OUTPUT</small><h3>预期输出结果</h3></div></div>
+          <div class="expected-output"><div><span></span> Terminal</div><pre id="projectExpectedOutput"></pre></div>
+        </section>
+        <section class="project-reader-section" id="project-notes">
+          <div class="project-section-heading"><span>04</span><div><small>NOTES</small><h3>结果说明与注意事项</h3></div></div>
+          <ul class="project-note-list" id="projectNotes"></ul>
+        </section>
+      </div>
+      <div class="project-modal-actions">
+        <button class="ghost-button" id="projectPrev">← 上一个项目</button>
+        <button class="primary-button" id="projectCloseAction">完成阅读</button>
+        <button class="ghost-button" id="projectNext">下一个项目 →</button>
+      </div>
+    </article>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="curriculum.js"></script>
+  <script src="concepts.js"></script>
+  <script src="theory.js"></script>
+  <script src="narrative-engine.js"></script>
+  <script src="lessons-foundation.js"></script>
+  <script src="lessons-ml.js"></script>
+  <script src="lessons-dl.js"></script>
+  <script src="lessons-rl.js"></script>
+  <script src="projects-code.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
